@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{{ define "qa/info.html" }}
+<html>
+<head>
+    <title>熊猫快收</title>
+    {{ template "public/assets.html" }}
+</head>
+
+<!--TIPS-->
+<!--You may remove all ID or Class names which contain "demo-", they are only used for demonstration. -->
+
+<body>
+<div id="container" class="container"   style="max-width: 600px;margin: 10px auto;text-align: left">
+
+    <div class="content">
+        <h3 class="text-primary">{{.Title}}</h3>
+        <hr />
+        <div class="pad-btm">
+            {{ .Content }}
+        </div>
+
+        <hr class="new-section-sm bord-no">
+        <div class="pad-top" style="text-align: center"><a class="btn-link" href="/">返回首页</a></div>
+    </div>
+
+
+</div>
+<!--===================================================-->
+<!-- END OF CONTAINER -->
+
+
+</body>
+</html>
+{{ end }}

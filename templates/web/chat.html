@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{{define "web/chat.html"}}
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Sample of websocket with golang</title>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <script>
+        $(function() {
+            var ws = new WebSocket("ws://127.0.0.1:8000/ws");
+            ws.onmessage = function(e) {
+                var list = eval(event.data);
+                for(var i=0;i<list.length;i++){
+                    $('<li>').text(list[i].title).appendTo($ul);
+                }
+
+            };
+            var $ul = $('#msg-list');
+            $('#sendBtn').click(function(){
+                var data = $('#name').val();
+                ws.send(data);
+                //先清空原来的记录
+                $ul.html("");
+            });
+        });
+    </script>
+</head>
+<body>
+<input id="name" type="text"/>
+<input type="button" id="sendBtn" value="send"/>
+<ul id="msg-list"></ul>
+</body>
+</html>
+{{end}}

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+{{ define "admin/faq.html" }}
+<html lang="zh">
+<head>
+    <title>常见问题 | 熊猫快收</title>
+    {{ template "public/assets.html" }}
+
+</head>
+<body>
+<div id="container" class="effect aside-float aside-bright mainnav-lg">
+    <!--NAVBAR-->
+    {{ template "admin/navbar.html" }}
+    <!--END NAVBAR-->
+
+    <div class="boxed">
+
+        <!--CONTENT CONTAINER-->
+        <div id="content-container">
+
+
+
+            <!--Page content-->
+            <div id="page-content">
+                <div class="row">
+                    <div class="col-md-7">
+                        <h4 class="page-header text-overflow">控制面板{{ .menuid }}</h4>
+                    </div>
+                    <div class="col-md-5 text-right mar-btm">
+                        <a class="btn btn-sm btn-primary" href="/admin/faq/add">添加</a>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel">
+                            <div class="panel-body">
+
+                                <!-- GENERAL -->
+                                <h4 class="mar-no pad-btm bord-btm"><i class="demo-pli-gear"></i> 最新</h4>
+                                <div id="demo-gen-faq" class="panel-group accordion">
+                                    {{range $i,$v := .list}}
+                                    <div class="pad-ver mar-ver">
+
+                                        <!-- Question -->
+                                        <a href="#demo-gen-faq{{$i}}" class="text-semibold text-lg text-main" data-toggle="collapse" data-parent="#demo-gen-faq">{{$v.Title}}</a>
+                                        <a href="/admin/faq/{{.Id}}">详情</a>
+                                        <!-- Answer -->
+                                        <div id="demo-gen-faq{{$i}}" class="mar-ver collapse in">
+                                            {{$v.Content}}
+                                        </div>
+                                    </div>
+                                    {{end}}
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!--End page content-->
+
+        </div>
+
+        <!--END CONTENT CONTAINER-->
+
+        <!--ASIDE-->
+        {{ template "admin/aside.html" }}
+        <!--END ASIDE-->
+
+
+        <!--MAIN NAVIGATION-->
+        {{ template "admin/mainnav.html" . }}
+        <!--END MAIN NAVIGATION-->
+
+    </div>
+
+    <!-- FOOTER -->
+    {{ template "admin/footer.html" }}
+    <!-- END FOOTER -->
+
+
+    <!-- SCROLL PAGE BUTTON -->
+    <button class="scroll-top btn">
+        <i class="pci-chevron chevron-up"></i>
+    </button>
+
+
+
+
+</div>
+<!-- END OF CONTAINER -->
+
+</body>
+</html>
+{{ end }}

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+{{ define "admin/index.html" }}
+<html>
+<head>
+    <title>控制面板 | 熊猫快收</title>
+    {{ template "public/assets.html" }}
+
+</head>
+<body>
+    <div id="container" class="effect aside-float aside-bright mainnav-lg">
+        <!--NAVBAR-->
+        {{ template "admin/navbar.html" }}
+        <!--END NAVBAR-->
+
+        <div class="boxed">
+
+            <!--CONTENT CONTAINER-->
+            <div id="content-container">
+
+                <!--Page Title-->
+                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                <div id="page-title">
+                    <h4 class="page-header text-overflow">控制面板</h4>
+
+                    <!--Searchbox-->
+                    <div class="searchbox">
+                        <div class="input-group custom-search-form">
+                            <input type="text" class="form-control" placeholder="关键词..">
+                            <span class="input-group-btn">
+                                <button class="text-muted" type="button"><i class="demo-pli-magnifi-glass"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                <!--End page title-->
+
+                <!--Page content-->
+				<div id="page-content">
+
+					<div class="row">
+						<div class="col-md-3 mar-btm">
+
+							<!-- Tips Widget -->
+							<!--===================================================-->
+							<h4><i class="demo-psi-idea-2 text-warning icon-fw"></i> Useful tips</h4>
+							<p class="text-sm">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+							<div class="list-group bg-trans">
+								<a class="list-group-item list-item-sm" href="#"><span class="badge badge-purple badge-icon badge-fw pull-left"></span> Lorem ipsum</a>
+								<a class="list-group-item list-item-sm" href="#"><span class="badge badge-info badge-icon badge-fw pull-left"></span> Consectetuer adipiscing</a>
+								<a class="list-group-item list-item-sm" href="#"><span class="badge badge-pink badge-icon badge-fw pull-left"></span> Sed diam nonummy</a>
+								<a class="list-group-item list-item-sm" href="#"><span class="badge badge-success badge-icon badge-fw pull-left"></span> Euismod tincidunt</a>
+							</div>
+							<!--===================================================-->
+
+							<hr class="new-section-sm bord-no">
+
+							<!-- Contact us widget -->
+							<!--===================================================-->
+
+							<h4><i class="demo-pli-question-circle icon-fw"></i> Can't find the answer? </h4>
+							<p class="text-sm">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</p>
+							<div class="pad-top">
+								<a href="#" class="btn btn-primary">Contact us</a>
+							</div>
+							<!--===================================================-->
+
+						</div>
+						<div class="col-md-9">
+							<div class="panel">
+								<div class="panel-body">
+
+									<!-- GENERAL -->
+									<!--===================================================-->
+									<h4 class="mar-no pad-btm bord-btm"><i class="demo-pli-gear"></i> General</h4>
+									<div id="demo-gen-faq" class="panel-group accordion">
+										<div class="pad-ver mar-ver">
+
+											<!-- Question -->
+											<a href="#demo-gen-faq1" class="text-semibold text-lg text-main" data-toggle="collapse" data-parent="#demo-gen-faq">Lorem ipsum dolor sit amet ?</a>
+
+
+											<!-- Answer -->
+											<div id="demo-gen-faq1" class="mar-ver collapse in">
+												Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+											</div>
+										</div>
+										<div class="pad-ver mar-ver">
+
+											<!-- Question -->
+											<a href="#demo-gen-faq2" class="text-semibold text-lg text-main" data-toggle="collapse" data-parent="#demo-gen-faq">Consectetuer adipiscing elit ?</a>
+
+											<!-- Answer -->
+											<div id="demo-gen-faq2" class="mar-ver collapse in">
+												Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+											</div>
+										</div>
+										<div class="pad-ver mar-ver">
+
+											<!-- Question -->
+											<a href="#demo-gen-faq3" class="text-semibold text-lg text-main" data-toggle="collapse" data-parent="#demo-gen-faq">Sed diam nonummy nibh euismod tincidunt ?</a>
+
+											<!-- Answer -->
+											<div id="demo-gen-faq3" class="mar-ver collapse in">
+												Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+											</div>
+										</div>
+										<div class="pad-ver mar-ver">
+
+											<!-- Question -->
+											<a href="#demo-gen-faq4" class="text-semibold text-lg text-main" data-toggle="collapse" data-parent="#demo-gen-faq">Tincidunt ut laoreet dolore magna ?</a>
+
+
+											<!-- Answer -->
+											<div id="demo-gen-faq4" class="mar-ver collapse in">
+												Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+											</div>
+										</div>
+									</div>
+									<!--===================================================-->
+
+									<hr class="new-section-md bord-no">
+
+									<!-- ACCOUNT -->
+									<!--===================================================-->
+									<h4 class="mar-no pad-btm bord-btm"><i class="demo-pli-male-female icon-fw"></i> Account</h4>
+									<div id="demo-acc-faq" class="panel-group accordion">
+										<div class="panel panel-trans pad-top">
+
+											<!-- Question -->
+											<a href="#demo-acc-faq1" class="text-semibold text-lg text-main" data-toggle="collapse" data-parent="#demo-acc-faq">Lorem ipsum dolor sit amet ?</a>
+
+
+
+											<!-- Answer -->
+											<div id="demo-acc-faq1" class="mar-ver collapse in">
+												Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+											</div>
+										</div>
+										<div class="panel panel-trans pad-top">
+
+											<!-- Question -->
+											<a href="#demo-acc-faq2" class="text-semibold text-lg text-main" data-toggle="collapse" data-parent="#demo-acc-faq">Consectetuer adipiscing elit ?</a>
+
+											<!-- Answer -->
+											<div id="demo-acc-faq2" class="mar-ver collapse">
+												Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+											</div>
+										</div>
+										<div class="panel panel-trans pad-top">
+
+											<!-- Question -->
+											<a href="#demo-acc-faq3" class="text-semibold text-lg text-main" data-toggle="collapse" data-parent="#demo-acc-faq">Sed diam nonummy nibh euismod tincidunt ?</a>
+
+											<!-- Answer -->
+											<div id="demo-acc-faq3" class="mar-ver collapse">
+												Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+											</div>
+										</div>
+									</div>
+									<!--===================================================-->
+
+									<hr class="new-section-md bord-no">
+
+									<!-- PAYMENT -->
+									<!--===================================================-->
+									<h4 class="mar-no pad-btm bord-btm"><i class="demo-pli-coin icon-fw"></i> Payment</h4>
+									<div id="demo-pym-faq" class="panel-group accordion">
+										<div class="pad-top mar-ver">
+
+											<!-- Question -->
+											<a href="#demo-pym-faq1" class="text-semibold text-lg text-main" data-toggle="collapse" data-parent="#demo-pym-faq">Lorem ipsum dolor sit amet ?</a>
+
+
+											<!-- Answer -->
+											<div id="demo-pym-faq1" class="mar-ver collapse">
+												Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+											</div>
+										</div>
+										<div class="pad-top mar-ver">
+
+											<!-- Question -->
+											<a href="#demo-pym-faq2" class="text-semibold text-lg text-main" data-toggle="collapse" data-parent="#demo-pym-faq">Consectetuer adipiscing elit ?</a>
+
+											<!-- Answer -->
+											<div id="demo-pym-faq2" class="mar-ver collapse">
+												Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+											</div>
+										</div>
+										<div class="pad-top mar-ver">
+
+											<!-- Question -->
+											<a href="#demo-pym-faq3" class="text-semibold text-lg text-main" data-toggle="collapse" data-parent="#demo-pym-faq">Sed diam nonummy nibh euismod tincidunt ?</a>
+
+
+											<!-- Answer -->
+											<div id="demo-pym-faq3" class="mar-ver collapse">
+												Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+											</div>
+										</div>
+										<div class="pad-top mar-ver">
+
+											<!-- Question -->
+											<a href="#demo-pym-faq4" class="text-semibold text-lg text-main" data-toggle="collapse" data-parent="#demo-pym-faq">Tincidunt ut laoreet dolore magna ?</a>
+
+
+											<!-- Answer -->
+											<div id="demo-pym-faq4" class="mar-ver collapse">
+												Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+											</div>
+										</div>
+									</div>
+									<!--===================================================-->
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+
+				<!--End page content-->
+
+            </div>
+
+            <!--END CONTENT CONTAINER-->
+
+            <!--ASIDE-->
+            {{ template "admin/aside.html" }}
+            <!--END ASIDE-->
+
+
+            <!--MAIN NAVIGATION-->
+           {{ template "admin/mainnav.html" }}
+            <!--END MAIN NAVIGATION-->
+
+        </div>
+
+        <!-- FOOTER -->
+        {{ template "admin/footer.html" }}
+        <!-- END FOOTER -->
+
+
+        <!-- SCROLL PAGE BUTTON -->
+        <button class="scroll-top btn">
+            <i class="pci-chevron chevron-up"></i>
+        </button>
+
+
+
+
+    </div>
+    <!-- END OF CONTAINER -->
+
+</body>
+</html>
+{{ end }}

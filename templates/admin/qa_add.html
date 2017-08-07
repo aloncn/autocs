@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+{{ define "admin/faq_add.html" }}
+<html lang="zh">
+<head>
+    <title>常见问题 | 熊猫快收</title>
+    {{ template "public/assets.html" }}
+
+
+</head>
+<body>
+<div id="container" class="effect aside-float aside-bright mainnav-lg">
+    <!--NAVBAR-->
+    {{ template "admin/navbar.html" }}
+    <!--END NAVBAR-->
+
+    <div class="boxed">
+
+        <!--CONTENT CONTAINER-->
+        <div id="content-container">
+                <!--Page Title-->
+                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                <div id="page-title">
+                    <ol class="breadcrumb">
+                        <li><a href="/admin">Admin &nbsp; &nbsp;></a></li>
+                        <li><a href="/admin/faq">FAQ  &nbsp; &nbsp;></a></li>
+                        <li class="active">Add</li>
+                    </ol>
+                </div>
+
+
+                <!--Page content-->
+                <div id="page-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">新增 常见问题</h3>
+                                </div>
+
+
+                                <!-- BASIC FORM ELEMENTS -->
+                                <!--===================================================-->
+                                <form class="panel-body form-horizontal form-padding">
+
+                                    <!--Text Input-->
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label" for="title-input">标题</label>
+                                        <div class="col-md-9">
+                                            <input type="text" id="title-input" class="form-control" placeholder="请输入标题">
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group pad-ver">
+                                        <label class="col-md-2 control-label">回复类型</label>
+                                        <div class="col-md-9">
+                                            <div class="radio">
+
+                                                <!-- Inline radio buttons -->
+                                                <input id="reply-inline-form-radio" class="magic-radio" type="radio" name="reply-form-radio" checked>
+                                                <label for="reply-inline-form-radio">文本</label>
+
+                                                <input id="reply-inline-form-radio-2" class="magic-radio" type="radio" name="reply-form-radio">
+                                                <label for="reply-inline-form-radio-2">图片</label>
+
+                                                <input id="reply-inline-form-radio-3" class="magic-radio" type="radio" name="reply-form-radio">
+                                                <label for="reply-inline-form-radio-3">链接(文章)</label>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">File input</label>
+                                        <div class="col-md-9">
+					                        <span class="pull-left btn btn-primary btn-file">
+					                        Browse... <input type="file">
+					                        </span>
+                                        </div>
+                                    </div>
+
+
+                                    <!--Textarea-->
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label" for="demo-textarea-input">回复文本</label>
+                                        <div class="col-md-9">
+                                            <textarea id="demo-textarea-input" rows="3" class="form-control" placeholder="纯文本内容..."></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label" for="demo-textarea-input">文章内容</label>
+                                        <div class="col-md-9" id="content_form"></div>
+                                    </div>
+
+
+
+
+                                </form>
+                                <!-- 编辑器js -->
+                                <script type="text/javascript" src="/assets/wangEditor/wangEditor.min.js"></script>
+                                <script type="text/javascript">
+                                    var E = window.wangEditor
+                                    var editor = new E('#content_form')
+                                    editor.customConfig.uploadImgServer = '/upload'  // 上传图片到服务器
+                                    editor.customConfig.uploadFileName = 'cimage'
+                                    editor.customConfig.uploadImgParams = {
+                                        token: 'bmx2018'   // 属性值会自动进行 encode ，此处无需 encode
+                                    }
+                                    editor.create()
+                                </script>
+                                <!--===================================================-->
+                                <!-- END BASIC FORM ELEMENTS -->
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <!--===================================================-->
+                <!--End page content-->
+
+        </div>
+
+        <!--END CONTENT CONTAINER-->
+
+        <!--ASIDE-->
+        {{ template "admin/aside.html" }}
+        <!--END ASIDE-->
+
+
+        <!--MAIN NAVIGATION-->
+        {{ template "admin/mainnav.html" . }}
+        <!--END MAIN NAVIGATION-->
+
+    </div>
+
+    <!-- FOOTER -->
+    {{ template "admin/footer.html" }}
+    <!-- END FOOTER -->
+
+
+    <!-- SCROLL PAGE BUTTON -->
+    <button class="scroll-top btn">
+        <i class="pci-chevron chevron-up"></i>
+    </button>
+
+
+
+
+</div>
+<!-- END OF CONTAINER -->
+
+</body>
+</html>
+{{ end }}

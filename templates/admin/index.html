@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+{{ define "admin/index.html" }}
+<html>
+<head>
+    <title>控制面板 | 熊猫快收</title>
+    {{ template "public/assets.html" }}
+
+	<!--Morris.js [ OPTIONAL ]-->
+	<link href="/assets/plugins/morris-js/morris.min.css" rel="stylesheet">
+
+	<script src="/assets/plugins/morris-js/morris.min.js"></script>
+	<script src="/assets/plugins/morris-js/raphael-js/raphael.min.js"></script>
+
+	<!--Sparkline [ OPTIONAL ]-->
+	<script src="/assets/plugins/sparkline/jquery.sparkline.min.js"></script>
+
+	<script src="/assets/js/demo/dashboard.js"></script>
+</head>
+<body>
+    <div id="container" class="effect aside-float aside-bright mainnav-lg">
+        <!--NAVBAR-->
+        {{ template "admin/navbar.html"}}
+        <!--END NAVBAR-->
+
+        <div class="boxed">
+
+            <!--CONTENT CONTAINER-->
+            <div id="content-container">
+
+                <!--Page Title-->
+                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                <div id="page-title">
+                    <h4 class="page-header text-overflow">控制面板</h4>
+
+                    <!--Searchbox-->
+                    <div class="searchbox">
+                        <div class="input-group custom-search-form">
+                            <input type="text" class="form-control" placeholder="关键词..">
+                            <span class="input-group-btn">
+                                <button class="text-muted" type="button"><i class="demo-pli-magnifi-glass"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                <!--End page title-->
+
+                <!--Page content-->
+
+                <div id="page-content">
+
+					<div class="row">
+					    <div class="col-lg-7">
+
+					        <!--Network Line Chart-->
+					        <!--===================================================-->
+					        <div id="demo-panel-network" class="panel">
+					            <div class="panel-heading">
+					                <div class="panel-control">
+					                    <button id="demo-panel-network-refresh" data-toggle="panel-overlay" data-target="#demo-panel-network" class="btn"><i class="demo-pli-repeat-2 icon-lg"></i></button>
+					                    <div class="btn-group">
+					                        <button class="dropdown-toggle btn" data-toggle="dropdown" aria-expanded="false"><i class="demo-pli-gear icon-lg"></i></button>
+					                    </div>
+					                </div>
+					                <h3 class="panel-title">今日包裹流量</h3>
+					            </div>
+
+					            <!--Morris line chart placeholder-->
+					            <div id="morris-chart-network" class="morris-full-content"></div>
+
+					            <!--Chart information-->
+					            <div class="panel-body">
+					                <div class="row pad-top">
+					                    <div class="col-lg-8">
+					                        <div class="media">
+					                            <div class="media-left">
+					                                <div class="media">
+					                                    <p class="text-semibold text-main">总计</p>
+					                                    <div class="media-left pad-no">
+					                                        <span class="text-2x text-semibold text-nowrap text-main">
+					                                            <i class="demo-pli-bag-coins icon-fw"></i> 76,325
+					                                        </span>
+					                                    </div>
+					                                    <!--<div class="media-body">
+					                                        <p class="mar-no"></p>
+					                                    </div>-->
+					                                </div>
+					                            </div>
+					                            <div class="media-body pad-lft">
+					                                <div class="pad-btm">
+                                                        <p class="text-semibold text-main">已签收</p>
+                                                        <div class="media-left pad-no">
+					                                        <span class="text-2x text-semibold text-nowrap text-main">
+					                                            <i class="demo-pli-bag-coins icon-fw"></i> 76,325
+					                                        </span>
+                                                        </div>
+					                                </div>
+					                            </div>
+					                        </div>
+					                    </div>
+
+					                    <div class="col-lg-4">
+					                        <p class="text-semibold text-main">已通知</p>
+					                        <ul class="list-unstyled">
+					                            <li>
+					                                <div class="media">
+					                                    <div class="media-left">
+					                                        <span class="text-2x text-semibold text-main">69808</span>
+					                                    </div>
+
+					                                </div>
+					                            </li>
+					                            <li>
+					                                <div class="clearfix">
+					                                    <p class="pull-left mar-no">通知成功率</p>
+					                                    <p class="pull-right mar-no">95%</p>
+					                                </div>
+					                                <div class="progress progress-xs">
+					                                    <div class="progress-bar progress-bar-info" style="width: 75%;">
+					                                        <span class="sr-only">95%</span>
+					                                    </div>
+					                                </div>
+					                            </li>
+					                        </ul>
+					                    </div>
+					                </div>
+					            </div>
+
+
+					        </div>
+					        <!--===================================================-->
+					        <!--End network line chart-->
+
+					    </div>
+					    <div class="col-lg-5">
+					        <div class="row">
+					            <div class="col-sm-6 col-lg-6">
+
+					                <!--Sparkline Area Chart-->
+					                <div class="panel panel-success panel-colorful">
+					                    <div class="pad-all">
+					                        <p class="text-lg text-semibold"><i class="demo-pli-data-storage icon-fw"></i> 代理商数量</p>
+					                        <p class="mar-no">
+					                            <span class="pull-right text-bold">50</span>
+					                            本周新增
+					                        </p>
+					                        <p class="mar-no">
+					                            <span class="pull-right text-bold">300</span>
+					                            总计
+					                        </p>
+					                    </div>
+					                    <div class="pad-all text-center">
+					                        <!--Placeholder-->
+					                        <div id="demo-sparkline-area"></div>
+					                    </div>
+					                </div>
+					            </div>
+					            <div class="col-sm-6 col-lg-6">
+
+					                <!--Sparkline Line Chart-->
+					                <div class="panel panel-info panel-colorful">
+					                    <div class="pad-all">
+					                        <p class="text-lg text-semibold"><i class="demo-pli-wallet-2 icon-fw"></i> 站点数据</p>
+					                        <p class="mar-no">
+					                            <span class="pull-right text-bold">764</span>
+					                            本周
+					                        </p>
+					                        <p class="mar-no">
+					                            <span class="pull-right text-bold">11,332</span>
+					                            总计
+					                        </p>
+					                    </div>
+					                    <div class="pad-all text-center">
+
+					                        <!--Placeholder-->
+					                        <div id="demo-sparkline-line"></div>
+
+					                    </div>
+					                </div>
+					            </div>
+					        </div>
+					        <div class="row">
+					            <div class="col-sm-6 col-lg-6">
+
+					                <!--Sparkline bar chart -->
+					                <div class="panel panel-purple panel-colorful">
+					                    <div class="pad-all">
+					                        <p class="text-lg text-semibold"><i class="demo-pli-bag-coins icon-fw"></i> 包裹数据</p>
+					                        <p class="mar-no">
+					                            <span class="pull-right text-bold">77764</span>
+					                            今日
+					                        </p>
+					                        <p class="mar-no">
+					                            <span class="pull-right text-bold">1443,332</span>
+					                            本周
+					                        </p>
+					                    </div>
+					                    <div class="pad-all text-center">
+
+					                        <!--Placeholder-->
+					                        <div id="demo-sparkline-bar" class="box-inline"></div>
+
+					                    </div>
+					                </div>
+					            </div>
+					            <div class="col-sm-6 col-lg-6">
+
+					                <!--Sparkline pie chart -->
+					                <div class="panel panel-warning panel-colorful">
+					                    <div class="pad-all">
+					                        <p class="text-lg text-semibold"><i class="demo-pli-check icon-fw"></i> Task Progress</p>
+					                        <p class="mar-no">
+					                            <span class="pull-right text-bold">34</span>
+					                            Completed
+					                        </p>
+					                        <p class="mar-no">
+					                            <span class="pull-right text-bold">79</span>
+					                            Total
+					                        </p>
+					                    </div>
+					                    <div class="pad-all">
+					                        <ul class="list-group list-unstyled">
+					                            <li class="mar-btm">
+					                                <span class="label label-warning pull-right">15%</span>
+					                                <p>Progress</p>
+					                                <div class="progress progress-md">
+					                                    <div style="width: 15%;" class="progress-bar progress-bar-light">
+					                                        <span class="sr-only">15%</span>
+					                                    </div>
+					                                </div>
+					                            </li>
+					                        </ul>
+					                    </div>
+					                </div>
+					            </div>
+					        </div>
+					    </div>
+					</div>
+
+					<div class="row">
+					    <div class="col-xs-12">
+					        <div class="panel">
+					            <div class="panel-heading">
+					                <h3 class="panel-title">短信充值</h3>
+					            </div>
+
+					            <!--Data Table-->
+					            <!--===================================================-->
+					            <div class="panel-body">
+					                <div class="pad-btm form-inline">
+					                    <div class="row">
+					                        <div class="col-sm-6 table-toolbar-left">
+					                            <button class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>新增</button>
+					                            <button class="btn btn-default"><i class="demo-pli-printer"></i></button>
+					                            <div class="btn-group">
+					                                <button class="btn btn-default"><i class="demo-pli-information"></i></button>
+					                                <button class="btn btn-default"><i class="demo-pli-recycling"></i></button>
+					                            </div>
+					                        </div>
+					                        <div class="col-sm-6 table-toolbar-right">
+					                            <div class="form-group">
+					                                <input type="text" autocomplete="off" class="form-control" placeholder="站点手机号" id="demo-input-search2">
+					                            </div>
+
+					                        </div>
+					                    </div>
+					                </div>
+					                <div class="table-responsive">
+					                    <table class="table table-striped">
+					                        <thead>
+					                            <tr>
+					                                <th>订单编号</th>
+					                                <th>站点</th>
+					                                <th>创建日期</th>
+					                                <th>充值金额</th>
+					                                <th class="text-center">状态</th>
+					                                <th class="text-center">订单编号</th>
+					                            </tr>
+					                        </thead>
+					                        <tbody>
+					                            <tr>
+					                                <td><a href="#" class="btn-link"> Order #53431</a></td>
+					                                <td>Steve N. Horton</td>
+					                                <td><span class="text-muted"><i class="fa fa-clock-o"></i> Oct 22, 2014</span></td>
+					                                <td>$45.00</td>
+					                                <td class="text-center">
+					                                    <div class="label label-table label-success">Paid</div>
+					                                </td>
+					                                <td class="text-center">-</td>
+					                            </tr>
+					                            <tr>
+					                                <td><a href="#" class="btn-link"> Order #53432</a></td>
+					                                <td>Charles S Boyle</td>
+					                                <td><span class="text-muted"><i class="fa fa-clock-o"></i> Oct 24, 2014</span></td>
+					                                <td>$245.30</td>
+					                                <td class="text-center">
+					                                    <div class="label label-table label-info">Shipped</div>
+					                                </td>
+					                                <td class="text-center"><i class="fa fa-plane"></i> CGX0089734531</td>
+					                            </tr>
+					                            <tr>
+					                                <td><a href="#" class="btn-link"> Order #53433</a></td>
+					                                <td>Lucy Doe</td>
+					                                <td><span class="text-muted"><i class="fa fa-clock-o"></i> Oct 24, 2014</span></td>
+					                                <td>$38.00</td>
+					                                <td class="text-center">
+					                                    <div class="label label-table label-info">Shipped</div>
+					                                </td>
+					                                <td class="text-center"><i class="fa fa-plane"></i> CGX0089934571</td>
+					                            </tr>
+					                            <tr>
+					                                <td><a href="#" class="btn-link"> Order #53434</a></td>
+					                                <td>Teresa L. Doe</td>
+					                                <td><span class="text-muted"><i class="fa fa-clock-o"></i> Oct 15, 2014</span></td>
+					                                <td>$77.99</td>
+					                                <td class="text-center">
+					                                    <div class="label label-table label-info">Shipped</div>
+					                                </td>
+					                                <td class="text-center"><i class="fa fa-plane"></i> CGX0089734574</td>
+					                            </tr>
+					                            <tr>
+					                                <td><a href="#" class="btn-link"> Order #53435</a></td>
+					                                <td>Teresa L. Doe</td>
+					                                <td><span class="text-muted"><i class="fa fa-clock-o"></i> Oct 12, 2014</span></td>
+					                                <td>$18.00</td>
+					                                <td class="text-center">
+					                                    <div class="label label-table label-success">Paid</div>
+					                                </td>
+					                                <td class="text-center">-</td>
+					                            </tr>
+					                            <tr>
+					                                <td><a href="#" class="btn-link">Order #53437</a></td>
+					                                <td>Charles S Boyle</td>
+					                                <td><span class="text-muted"><i class="fa fa-clock-o"></i> Oct 17, 2014</span></td>
+					                                <td>$658.00</td>
+					                                <td class="text-center">
+					                                    <div class="label label-table label-danger">Refunded</div>
+					                                </td>
+					                                <td class="text-center">-</td>
+					                            </tr>
+					                            <tr>
+					                                <td><a href="#" class="btn-link">Order #536584</a></td>
+					                                <td>Scott S. Calabrese</td>
+					                                <td><span class="text-muted"><i class="fa fa-clock-o"></i> Oct 19, 2014</span></td>
+					                                <td>$45.58</td>
+					                                <td class="text-center">
+					                                    <div class="label label-table label-warning">Unpaid</div>
+					                                </td>
+					                                <td class="text-center">-</td>
+					                            </tr>
+					                        </tbody>
+					                    </table>
+					                </div>
+					                <hr>
+					                <div class="pull-right">
+					                    <ul class="pagination text-nowrap mar-no">
+					                        <li class="page-pre disabled">
+					                            <a href="#">&lt;</a>
+					                        </li>
+					                        <li class="page-number active">
+					                            <span>1</span>
+					                        </li>
+					                        <li class="page-number">
+					                            <a href="#">2</a>
+					                        </li>
+					                        <li class="page-number">
+					                            <a href="#">3</a>
+					                        </li>
+					                        <li>
+					                            <span>...</span>
+					                        </li>
+					                        <li class="page-number">
+					                            <a href="#">9</a>
+					                        </li>
+					                        <li class="page-next">
+					                            <a href="#">&gt;</a>
+					                        </li>
+					                    </ul>
+					                </div>
+					            </div>
+					            <!--===================================================-->
+					            <!--End Data Table-->
+
+					        </div>
+					    </div>
+					</div>
+
+                </div>
+                <!--End page content-->
+
+            </div>
+
+            <!--END CONTENT CONTAINER-->
+
+            <!--ASIDE-->
+            {{ template "admin/aside.html" }}
+            <!--END ASIDE-->
+
+
+            <!--MAIN NAVIGATION-->
+           {{ template "admin/mainnav.html" .}}
+            <!--END MAIN NAVIGATION-->
+
+        </div>
+
+        <!-- FOOTER -->
+        {{ template "admin/footer.html" }}
+        <!-- END FOOTER -->
+
+
+        <!-- SCROLL PAGE BUTTON -->
+        <button class="scroll-top btn">
+            <i class="pci-chevron chevron-up"></i>
+        </button>
+
+
+
+
+    </div>
+    <!-- END OF CONTAINER -->
+
+</body>
+</html>
+{{ end }}

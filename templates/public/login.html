@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+{{ define "public/login.html" }}
+<html>
+
+<head>
+    <title>后台登陆 |百米需 | 熊猫快收</title>
+	{{ template "public/assets.html" }}
+</head>
+
+<body>
+	<div id="container" class="cls-container">
+
+		<div id="bg-overlay" class="bg-img" style="background-image: url(/assets/img/bg-img/bg-img-5.jpg);"></div>
+
+		<div class="cls-content">
+		    <div class="cls-content-sm panel">
+		        <div class="panel-body">
+		            <div class="mar-ver pad-btm">
+		                <h3 class="h4 mar-no">登 陆</h3>
+		                <p class="text-muted">请输入你的账户信息</p>
+		            </div>
+		                <div class="form-group">
+		                    <input type="text" class="form-control" id="username" placeholder="用户名" autofocus>
+		                </div>
+		                <div class="form-group">
+		                    <input type="password" class="form-control" id="password" placeholder="密码">
+		                </div>
+		                <div class="checkbox pad-btm text-left">
+		                    <input id="demo-form-checkbox" class="magic-checkbox" type="checkbox">
+		                    <label for="demo-form-checkbox">Remember me</label>
+		                </div>
+		                <button class="btn btn-primary btn-lg btn-block" id="login-btn" >登 陆</button>
+		        </div>
+		
+		        <div class="pad-all">
+		            <a href="pages-password-reminder.html" class="btn-link mar-rgt">Forgot password ?</a>
+		            <a href="pages-register.html" class="btn-link mar-lft">Create a new account</a>
+
+		            <div class="media pad-top bord-top">
+		                <div class="pull-right">
+		                    <a href="#" class="pad-rgt"><i class="demo-psi-facebook icon-lg text-primary"></i></a>
+		                    <a href="#" class="pad-rgt"><i class="demo-psi-twitter icon-lg text-info"></i></a>
+		                    <a href="#" class="pad-rgt"><i class="demo-psi-google-plus icon-lg text-danger"></i></a>
+		                </div>
+		                <div class="media-body text-left">
+		                    Login with
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+
+
+		
+	</div>
+		</body>
+	<script>
+        $(document).ready(function(){
+            $("#login-btn").click(function(){
+                $.post("/login",
+					{
+					    username:$("#username").val(),
+						password:$("#password").val()
+					},
+                    function(data){
+                    	if (data.code !== 0){
+                            $.niftyNoty({
+                                type: 'danger',
+                                title: '登陆失败',
+                                message: data.msg,
+                                container: 'floating',
+                                timer: 2000
+                            });
+						}else{
+                            location.href = data.url;
+						}
+                    });
+            });
+        });
+	</script>
+</html>
+{{ end }}

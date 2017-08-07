@@ -1,0 +1,49 @@
+{{ define "admin/mainnav.html" }}
+<nav id="mainnav-container">
+    <div id="mainnav">
+
+        <!--Menu-->
+        <!--================================-->
+        <div id="mainnav-menu-wrap">
+            <div class="nano">
+                <div class="nano-content">
+                    <ul id="mainnav-menu" class="list-group">
+
+                        <!--Menu list item-->
+                        <li  {{if eq .mid "home"}} class="active-link" {{ end }} >
+                            <a href="/admin">
+                                <i class="demo-psi-home"></i>
+                                <span class="menu-title">
+												<strong>控制面板</strong>
+											</span>
+                            </a>
+                        </li>
+
+                        <!--Menu list item-->
+                        <li id="faq" {{if eq .mid "faq"}}  class="active-link" {{ end }} >
+                            <a href="faq">
+                                <i class="demo-psi-inbox-full"></i>
+                                <span class="menu-title">常见问题</span>
+                            </a>
+                        </li>
+
+                        <li id="keywords" {{if eq .mid "dic"}}  class="active-link" {{ end }} >
+                        <a href="dic">
+                            <i class="demo-psi-inbox-full"></i>
+                            <span class="menu-title">问答词典</span>
+                        </a>
+                        </li>
+                    </ul>
+
+
+
+                </div>
+            </div>
+        </div>
+        <!--================================-->
+        <!--End menu-->
+
+    </div>
+</nav>
+
+{{ end }}

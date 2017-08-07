@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{{ define "admin/qa_list.html" }}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>常见问题列表</title>
+</head>
+<body>
+    <ul>
+        {{ range $i, $v := .list }}
+        <li>
+        Id:{{ $v.Id }} - <a href="info/{{ $v.Id }}">{{ $v.Title }}</a>
+        </li>
+        {{ end }}
+
+    </ul>
+</body>
+</html>
+{{ end }}

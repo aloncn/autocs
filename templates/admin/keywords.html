@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+{{ define "admin/keywords.html" }}
+<html lang="zh">
+<head>
+    <title>常见问题 | 熊猫快收</title>
+    {{ template "public/assets.html" }}
+
+</head>
+<body>
+<div id="container" class="effect aside-float aside-bright mainnav-lg">
+    <!--NAVBAR-->
+    {{ template "admin/navbar.html" }}
+    <!--END NAVBAR-->
+
+    <div class="boxed">
+
+        <!--CONTENT CONTAINER-->
+        <div id="content-container">
+
+            <!--Page Title-->
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <div id="page-title">
+                <h4 class="page-header text-overflow">控制面板</h4>
+
+                <!--Searchbox-->
+                <div class="searchbox">
+                    <div class="input-group custom-search-form">
+                        <input type="text" class="form-control" placeholder="关键词..">
+                        <span class="input-group-btn">
+                                <button class="text-muted" type="button"><i class="demo-pli-magnifi-glass"></i></button>
+                            </span>
+                    </div>
+                </div>
+            </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+            <!--End page title-->
+
+            <!--Page content-->
+            <div id="page-content">
+
+                <div class="row">
+                    <div class="col-md-12 mar-btm">
+
+                        <!-- Tips Widget -->
+                        <!--===================================================-->
+                        <h4><i class="demo-psi-idea-2 text-warning icon-fw"></i> 问答词典</h4>
+                        <p class="text-sm">词典决定根据语意是否匹配到关键词，权重影响出现概率.</p>
+                        <div class="list-group bg-trans">
+                            {{range $i,$v := .list}}
+                            <a class="list-group-item list-item-sm" href="#" style="max-width: 200px;float: left"><span class="badge badge-purple badge-icon badge-fw pull-left"></span> {{$v.Name}} <span class="badge badge-{{$v.Cs}}">{{$v.Weight}}</span></a>
+                            {{end}}
+                            <!--<a class="list-group-item list-item-sm" href="#"><span class="badge badge-info badge-icon badge-fw pull-left"></span> Consectetuer adipiscing</a>
+                            <a class="list-group-item list-item-sm" href="#"><span class="badge badge-pink badge-icon badge-fw pull-left"></span> Sed diam nonummy</a>
+                            <a class="list-group-item list-item-sm" href="#"><span class="badge badge-success badge-icon badge-fw pull-left"></span> Euismod tincidunt</a>-->
+                        </div>
+                        <!--===================================================-->
+                        <br>
+                        <hr class="new-section-sm bord-no">
+
+
+                        <div class="pad-top">
+                            <a href="#" class="btn btn-primary">添加</a>
+                        </div>
+                        <!--===================================================-->
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <!--End page content-->
+
+        </div>
+
+        <!--END CONTENT CONTAINER-->
+
+        <!--ASIDE-->
+        {{ template "admin/aside.html" }}
+        <!--END ASIDE-->
+
+
+        <!--MAIN NAVIGATION-->
+        {{ template "admin/mainnav.html" . }}
+        <!--END MAIN NAVIGATION-->
+
+    </div>
+
+    <!-- FOOTER -->
+    {{ template "admin/footer.html" }}
+    <!-- END FOOTER -->
+
+
+    <!-- SCROLL PAGE BUTTON -->
+    <button class="scroll-top btn">
+        <i class="pci-chevron chevron-up"></i>
+    </button>
+
+
+
+
+</div>
+<!-- END OF CONTAINER -->
+
+</body>
+</html>
+{{ end }}

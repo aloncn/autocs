@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+{{ define "web/index.html" }}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>{{ .title }}</title>
+    <link rel="stylesheet" href="/assets/layui/css/layui.css">
+</head>
+<body>
+
+<!-- 你的HTML代码 -->
+
+<script src="/assets/layui/layui.js"></script>
+<script>
+
+    layui.use('layim', function(layim){
+        var layim = layui.layim;
+        var mine =  {
+            "username": "我" //我的昵称
+            ,"id": "1001" //我的ID
+            ,"status": "online" //在线状态 online：在线、hide：隐身
+            ,"remark": "在深邃的编码世界，做一枚轻盈的纸飞机" //我的签名
+            ,"avatar": "/assets/img/profile-photos/1.png" //我的头像
+        }//配置客户信息
+        layim.config({
+            init: {
+                //配置客户信息
+                mine:mine
+            },
+            brief: true ,//是否简约模式（如果true则不显示主面板）
+        });
+
+        layim.chat({
+            name: '客服姐姐'
+            ,type: 'friend'
+            ,avatar: '/assets/img/profile-photos/8.png'
+            ,id: "1000"
+        });
+
+        //建立WebSocket通讯
+        //注意：如果你要兼容ie8+，建议你采用 socket.io 的版本。下面是以原生WS为例
+        var socket = new WebSocket('ws://127.0.0.1:8000/chat_demo');
+        //连接成功时触发
+        socket.onopen = function(){
+            //socket.send('连接成功');
+        };
+
+        layim.on('sendMessage', function(data){
+          //console.log(res)
+            socket.send(JSON.stringify({
+                type: 'sendMessage' //随便定义，用于在服务端区分消息类型
+                ,data: data
+            }));
+
+        });
+        //监听收到的消息
+        socket.onmessage = function(res){
+           var To = JSON.parse(res.data);
+            console.log(To);
+            if(To.type === 'friend'){
+                layim.setChatStatus('<span style="color:#FF5722;">🤖 数据检索中...</span>');
+            }
+
+            var obj = {};
+            obj = {
+                username: To.username
+                ,avatar: To.avatar
+                ,id: To.id
+                ,type: To.type
+                ,content: To.content
+            }
+            layim.setChatStatus('<span style="color:#FF5722;">🐼 7x24小时在线！！！</span>');
+            layim.getMessage(obj);
+
+        };
+    });
+</script>
+
+</body>
+</html>
+{{ end }}
