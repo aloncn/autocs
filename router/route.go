@@ -102,6 +102,7 @@ func InitRouter() *gin.Engine {
 	adm.GET("/faq", admin.QaList)
 	//新增qa
 	adm.GET("/faq/add", admin.QaAdd)
+	adm.POST("/faq/add", admin.QaAddDo)
 	//用户词典
 	adm.GET("/dic", middleware.AdminAuth(), admin.GetAllWords)
 

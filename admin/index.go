@@ -11,6 +11,7 @@ import (
 	"bufio"
 	"io"
 	"strings"
+	"github.com/labstack/gommon/log"
 )
 
 func QaList(c *gin.Context) {
@@ -28,6 +29,25 @@ func QaList(c *gin.Context) {
 
 func QaAdd(c *gin.Context) {
 	c.HTML(200,"admin/faq_add.html", gin.H{"mid":"faq"})
+}
+func QaAddDo(c *gin.Context) {
+	faq := qa.Qa{}
+	faq.Title = c.PostForm("title")
+	faq.ReplyType, _ = strconv.Atoi(c.PostForm("reply_type"))
+	faq.ReplyImg = c.PostForm("reply_img")
+	faq.ReplyText = c.PostForm("reply_text")
+	faq.Content = c.PostForm("content")
+	faq.Keywords = c.PostForm("keywords")
+
+
+	if _, err := faq.FaqAdd(faq);err != nil {
+		log.Fatal(err)
+		c.JSON(200, gin.H{"code":1,"msg":"新增失败"})
+		c.Abort()
+	}
+
+
+	c.JSON(200, gin.H{"msg": "添加成功","code":0,"url":"/admin/faq"})
 }
 
 func QaInfo (c *gin.Context) {

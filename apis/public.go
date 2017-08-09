@@ -9,6 +9,7 @@ import (
 	"os"
 	"io"
 	"log"
+	"farmer/autocs/config"
 )
 
 func PublicLoginApi(c *gin.Context)  {
@@ -40,8 +41,7 @@ func UploadApi(c *gin.Context)  {
 	file, header , err := c.Request.FormFile("cimage")
 	filename := header.Filename
 	// 创建临时接收文件
-	upload_path := "/Users/farmer/igo/src/farmer/autocs/upload"
-	out, err := os.Create(upload_path + "/" +filename)
+	out, err := os.Create(fmcfg.Config.GetString("basePath") + "/" +filename)
 	if err != nil {
 		log.Fatal(err)
 	}

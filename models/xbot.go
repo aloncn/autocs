@@ -3,11 +3,15 @@ package models
 import (
 	db "farmer/autocs/database"
 	"fmt"
+	"github.com/deepzz0/go-com/time"
 )
 type (
 	Xbot struct {
 		Id int    `json:"id"`
 		Title	string    `json:"title"`
+		ReplyType	int    `json:"reply_type"`
+		ReplyImg	string    `json:"reply_img"`
+		ReplyText	string        `json:"reply_text"`
 	}
 	QaList struct {
 		Id int
@@ -15,11 +19,15 @@ type (
 	}
 
 	Qa struct {
-		Id int    `json:"id"`
-		Title	string    `json:"title"`
-		Content	string        `json:"content"`
-		Views	int    `json:"views"`
-		CreateDate	string    `json:"create_date"`
+		Id int    			   `json:"id"`
+		Title		string     `json:"title"`
+		ReplyType	int        `json:"reply_type"`
+		ReplyImg	string     `json:"reply_img"`
+		ReplyText	string    `json:"reply_text"`
+		Content		string     `json:"content"`
+		Keywords 	string     `json:"keywords"`
+		Views		int    	   `json:"views"`
+		CreateDate	time.Now   `json:"create_date"`
 	}
 
 	QaWeb struct {
@@ -37,7 +45,7 @@ func (Qa) TableName() string  {
 
 func GetListByKeyword(keyword string)(x []Xbot, err error) {
 	x = []Xbot{}
-	err = db.GetORM().Table("xmks_qa").Where("keywords like ?","%"+ keyword +"%").Find(&x).Error
+	err = db.GetORM().Table("xmks_qa").Where("keywords like ?","%"+ keyword +"%").Order("id desc").Find(&x).Limit(5).Error
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -56,7 +64,7 @@ func GetInfoById(id int)(x Qa, err error) {
 
 func GetList()(x []QaWeb, err error) {
 	x = []QaWeb{}
-	err = db.GetORM().Table("xmks_qa").Find(&x).Error
+	err = db.GetORM().Table("xmks_qa").Order("id desc").Find(&x).Limit(10).Error
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -70,4 +78,9 @@ func GetInfo(id int)(x QaWeb, err error) {
 		fmt.Println(err)
 	}
 	return
+}
+
+func (* Qa)FaqAdd(qa Qa)(Qa,error){
+	err := db.GetORM().Create(&qa).Error
+	return qa,err
 }

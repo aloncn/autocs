@@ -157,12 +157,22 @@ func ChatDemoApi(w http.ResponseWriter, r *http.Request){
 		fmt.Println(cut)
 		result := ""
 		url := fmcfg.Config.GetString("app.url") + ":" + fmcfg.Config.GetString("app.port") + "/faq/"
-		if len(cut) > 0 {
+		if len(cut) == 1 {
+			//图片回复、文本回复直接返回最新记录
+			switch cut[0].ReplyType {
+				case 1:
+					result = cut[0].ReplyText
+				case 2:
+					result = "img[" + cut[0].ReplyImg + "]"
+				default:
+					result += "👉 a(http://" + url + strconv.Itoa(cut[0].Id) + ")["+ cut[0].Title +"] \n\r"
+			}
+		}else if len(cut) > 1 {
 			for _,v := range cut {
 				result += "👉 a(http://" + url + strconv.Itoa(v.Id) + ")["+ v.Title +"] \n\r"
 			}
 		}else {
-			result = "聊点什么吧，仅限 '云计算'、'优惠政策'相关，不然我回答不上来😢";
+			result = "你可以输入`百米需`,`云计算`,`优惠政策`,`小可爱`等进行体验";
 		}
 		ret := Re{Username:js.Data.To.Name,Avatar:js.Data.To.Avatar,Id:js.Data.To.Id,Type:js.Data.To.Type,Content:result,Mine:false,Fromid:js.Data.Mine.Id,Timestamp:time.Now().Unix()}
 

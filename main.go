@@ -10,11 +10,10 @@ import (
 	"farmer/autocs/config"
 )
 
-
 func main()  {
 	//初始化配置文件
-	//fmcfg.NewConfig("conf","sys")
-	fmcfg.NewConfig("/Users/farmer/igo/src/farmer/autocs/conf","sys")
+	fmcfg.NewConfig("conf","sys")
+	//fmcfg.NewConfig("/Users/farmer/igo/src/farmer/autocs/conf","sys")
 	db.NewDB("dbDefault")	//默认数据库
 	//NewDB("db_r")		//读库
 	//NewDB("db_w")		//写库
