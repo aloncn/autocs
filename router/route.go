@@ -24,6 +24,8 @@ func InitRouter() *gin.Engine {
 	router.GET("/chat_demo", func(c *gin.Context) {
 		ChatDemoApi(c.Writer, c.Request)
 	})
+	//问题详情
+	router.GET("/faq/:id", QaInfo)
 
 	router.POST("/user", AddPersonApi)
 
@@ -106,8 +108,9 @@ func InitRouter() *gin.Engine {
 	//用户词典
 	adm.GET("/dic", middleware.AdminAuth(), admin.GetAllWords)
 
-	//问题详情
-	router.GET("/faq/:id", admin.QaInfo)
+	adm.GET("/update_dic", admin.UpDic)
+
+
 
 
 	return router

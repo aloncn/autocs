@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"strconv"
 	"farmer/autocs/common"
-	"html/template"
 	"os"
 	"bufio"
 	"io"
@@ -16,11 +15,13 @@ import (
 
 func QaList(c *gin.Context) {
 	var msg string
-	list, err := qa.GetList()
+	var pageNum int
+	pageNum, _ = strconv.Atoi(c.Query("p"))
+	list,total, err := qa.GetList(pageNum)
 	if err != nil {
 		msg = "暂无数据"
 	}
-	fmt.Println(list)
+	fmt.Println(total)
 	for i, v := range list{
 		list[i].Content = common.TrimHtml(v.Content)
 	}
@@ -46,21 +47,27 @@ func QaAddDo(c *gin.Context) {
 		c.Abort()
 	}
 
+	//更新FAQ字典
+	go checkDic(faq.Keywords)
 
 	c.JSON(200, gin.H{"msg": "添加成功","code":0,"url":"/admin/faq"})
 }
+func checkDic(keywords string)  {
+	fmt.Println(keywords)
+	words := common.StrToSlice(keywords)
+	fmt.Println(words)
 
-func QaInfo (c *gin.Context) {
-	type r struct {
-		Content interface{}
-		Title	string
+	for _, v := range words{
+		common.UpdateDic(v)
 	}
-	rr := r{}
-	cid, _ := strconv.Atoi(c.Param("id"))
-	data, _ := qa.GetInfo(cid)
-	rr.Title = data.Title
-	rr.Content = template.HTML(data.Content)
-	c.HTML(200,"qa/info.html", rr)
+}
+
+func UpDic(c *gin.Context) {
+	str := c.Query("str")
+	fmt.Println(str)
+
+	go common.UpdateDic(str)
+
 }
 
 func add(left int, right int) int{

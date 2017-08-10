@@ -11,6 +11,8 @@ import (
 	mr "math/rand"
 	"path/filepath"
 	"os"
+	"bufio"
+	"fmt"
 )
 
 //md5方法
@@ -140,4 +142,44 @@ func GetPath() string {
 
 	APP_ROOT = strings.Replace(dir, "\\", "/", -1)
 	return APP_ROOT
+}
+
+func UpdateDic(str string) {
+	f, err := os.Open("./data/dictionary.txt")
+	if err != nil {
+		panic(err)
+	}
+	defer f.Close()
+
+	rd := bufio.NewReader(f)
+	rs := false
+	for {
+		line, err := rd.ReadString('\n') //以'\n'为结束符读入一行
+		thisLine := strings.Fields(line)
+		name := thisLine[0]
+		if strings.EqualFold(name, str) == true {
+			fmt.Println(str + "字典中已存在")
+			rs = true
+			break
+		}
+
+		if err != nil || io.EOF == err {
+			break
+		}
+
+	}
+	if rs == false {
+		fmt.Println(str + "字典中不存在, 执行更新...")
+		fd,_:=os.OpenFile("./data/dictionary.txt",os.O_RDWR|os.O_CREATE|os.O_APPEND,0644)
+		fd_content:=strings.Join([]string{"\n",str," ","3"},"")
+		buf:=[]byte(fd_content)
+		fd.Write(buf)
+		fd.Close()
+	}
+
+}
+
+func StrToSlice(str string) []string {
+	canSplit := func (c rune)  bool { return c == ','}
+	return strings.FieldsFunc(str,canSplit)  //字符串转数组
 }

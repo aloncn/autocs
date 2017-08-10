@@ -9,6 +9,10 @@
 </head>
 <body>
 <script src="/assets/layui/layui.js"></script>
+<style>
+    .layim-chat-tool, .layim-title .layim-chat-back{display: none}
+    .layim-chat-footer{height: 45px}
+</style>
 <script>
     layui.use('mobile', function(){
         var mobile = layui.mobile
@@ -23,14 +27,14 @@
                     ,"avatar": "http://tp4.sinaimg.cn/1345566427/180/5730976522/0" //我的头像
                 }
                 //好友列表数据
-                ,friend: [] //见下文：init数据格式
-                //,brief: true ,//是否简约模式（如果true则不显示主面板）
+                //,friend: [] //见下文：init数据格式
+                ,brief: true ,//是否简约模式（如果true则不显示主面板）
             }
         });
         //创建一个会话
         layim.chat({
             id: "1000"
-            ,name: '客服姐姐'
+            ,name: '自助客服'
             ,type: 'kefu' //friend、group等字符，如果是group，则创建的是群聊
             ,avatar: '/assets/img/profile-photos/8.png'
         });

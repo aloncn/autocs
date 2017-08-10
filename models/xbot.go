@@ -34,6 +34,9 @@ type (
 		Id int
 		Title	string
 		Content	string
+		ReplyType	int
+		ReplyImg	string
+		ReplyText	string
 		Views	int
 		CreateDate	string
 	}
@@ -62,9 +65,20 @@ func GetInfoById(id int)(x Qa, err error) {
 	return
 }
 
-func GetList()(x []QaWeb, err error) {
+func GetList(page int)(x []QaWeb,total int, err error) {
 	x = []QaWeb{}
-	err = db.GetORM().Table("xmks_qa").Order("id desc").Find(&x).Limit(10).Error
+	pg1 := 10
+	var pg2 int
+	if page < 2{
+		pg2 = 0
+	}else{
+		pg2 = (page - 1)*pg1
+	}
+
+	total = 0
+	db.GetORM().Table("xmks_qa").Find(&x).Count(&total)
+	err = db.GetORM().Table("xmks_qa").Order("id desc").Limit(pg1).Offset(pg2).Find(&x).Error
+
 	if err != nil {
 		fmt.Println(err)
 	}

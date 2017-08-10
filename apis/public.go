@@ -10,6 +10,9 @@ import (
 	"io"
 	"log"
 	"farmer/autocs/config"
+	"html/template"
+	"strconv"
+	"farmer/autocs/models"
 )
 
 func PublicLoginApi(c *gin.Context)  {
@@ -41,7 +44,7 @@ func UploadApi(c *gin.Context)  {
 	file, header , err := c.Request.FormFile("cimage")
 	filename := header.Filename
 	// 创建临时接收文件
-	out, err := os.Create(fmcfg.Config.GetString("basePath") + "/" +filename)
+	out, err := os.Create(fmcfg.Config.GetString("basePath") + "upload/" +filename)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -54,4 +57,19 @@ func UploadApi(c *gin.Context)  {
 	pics := []string{"/upload/" + filename}
 	c.JSON(http.StatusOK,gin.H{"errno":0, "data":pics})
 
+}
+
+func QaInfo (c *gin.Context) {
+	type R struct {
+		Content interface{}
+		Title	string
+		ReplyText string
+		ReplyType int
+		ReplyImg string
+	}
+	cid, _ := strconv.Atoi(c.Param("id"))
+	data, _ := models.GetInfo(cid)
+	r := R{Title:data.Title, ReplyType:data.ReplyType,ReplyImg:data.ReplyImg,ReplyText:data.ReplyText,Content:template.HTML(data.Content)}
+	//rr.Content = template.HTML(data.Content)
+	c.HTML(200,"qa/info.html", r)
 }
