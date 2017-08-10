@@ -41,11 +41,21 @@
                                 <div id="demo-gen-faq" class="panel-group accordion">
                                     {{range $i,$v := .list}}
                                     <div class="pad-ver mar-ver">
+                                        <div class="row">
+                                            <div class="col-md-7">
+                                                <a href="#demo-gen-faq{{$i}}" class="text-semibold text-lg text-main" data-toggle="collapse" data-parent="#demo-gen-faq">{{$v.Title}}</a>
+                                            </div>
+                                            <div class="col-md-5 text-right mar-btm">
+                                                <a href="/faq/{{.Id}}" class="btn btn-sm btn-primary" target="_blank">详情</a>
+                                                <a href="/admin/faq/edit/{{.Id}}" class="btn btn-sm btn-success" >编辑</a>
+                                                <button onclick="del({{.Id}});" class="btn btn-sm btn-danger" >删除</button>
 
-                                        <!-- Question -->
-                                        <a href="#demo-gen-faq{{$i}}" class="text-semibold text-lg text-main" data-toggle="collapse" data-parent="#demo-gen-faq">{{$v.Title}}</a>
-                                        <a href="/faq/{{.Id}}" target="_blank">详情</a>
-                                        <!-- Answer -->
+                                            </div>
+                                        </div>
+
+
+
+
                                         <div id="demo-gen-faq{{$i}}" class="mar-ver collapse in">
                                             {{$v.Content}}
                                         </div>
@@ -95,5 +105,37 @@
 <!-- END OF CONTAINER -->
 
 </body>
+<script>
+    function del(id) {
+        $.ajax({
+            url: 'faq/' + id,
+            type: 'DELETE',
+            success: function(data) {
+                if (data.code !== 0){
+                    $.niftyNoty({
+                        type: 'danger',
+                        title: '操作失败',
+                        message: data.msg,
+                        container: 'floating',
+                        timer: 2000
+                    });
+                }else{
+                    $.niftyNoty({
+                        type: 'info',
+                        title: '删除成功',
+                        message: data.msg,
+                        container: 'floating',
+                        timer: 1000
+                    });
+                    setTimeout(function () {
+                        location.href = data.url;
+                    },1000)
+
+                }
+            }
+        });
+
+    }
+</script>
 </html>
 {{ end }}

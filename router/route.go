@@ -93,7 +93,7 @@ func InitRouter() *gin.Engine {
 
 	//管理后台
 	adm.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "admin/index.html", gin.H{"title": "Main website","mid":"home"})
+		c.HTML(http.StatusOK, "admin/index.html", gin.H{"title": "Main website","Mid":"home"})
 	})
 	//	/admin/index采用301重定向到 /admin
 	adm.GET("index", func(c *gin.Context) {
@@ -103,8 +103,15 @@ func InitRouter() *gin.Engine {
 	//常见问题列表
 	adm.GET("/faq", admin.QaList)
 	//新增qa
-	adm.GET("/faq/add", admin.QaAdd)
-	adm.POST("/faq/add", admin.QaAddDo)
+	adm.GET("/faq/add",middleware.AdminAuth(), admin.QaAdd)
+	adm.POST("/faq/add",middleware.AdminAuth(), admin.QaAddDo)
+
+	//删除faq
+	adm.DELETE("/faq/:id",middleware.AdminAuth(),admin.QaDelAction)
+	//编辑faq
+	adm.GET("/faq/edit/:id",middleware.AdminAuth(),admin.QaEditAction)
+	adm.POST("/faq/update",middleware.AdminAuth(),admin.QaUpdateAction)
+
 	//用户词典
 	adm.GET("/dic", middleware.AdminAuth(), admin.GetAllWords)
 

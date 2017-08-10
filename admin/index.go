@@ -11,6 +11,7 @@ import (
 	"io"
 	"strings"
 	"github.com/labstack/gommon/log"
+	"html/template"
 )
 
 func QaList(c *gin.Context) {
@@ -25,11 +26,11 @@ func QaList(c *gin.Context) {
 	for i, v := range list{
 		list[i].Content = common.TrimHtml(v.Content)
 	}
-	c.HTML(200,"admin/faq.html", gin.H{"msg": msg,"list":list,"mid":"faq"})
+	c.HTML(200,"admin/faq.html", gin.H{"msg": msg,"list":list,"Mid":"faq"})
 }
 
 func QaAdd(c *gin.Context) {
-	c.HTML(200,"admin/faq_add.html", gin.H{"mid":"faq"})
+	c.HTML(200,"admin/faq_add.html", gin.H{"Mid":"faq"})
 }
 func QaAddDo(c *gin.Context) {
 	faq := qa.Qa{}
@@ -51,6 +52,57 @@ func QaAddDo(c *gin.Context) {
 	go checkDic(faq.Keywords)
 
 	c.JSON(200, gin.H{"msg": "添加成功","code":0,"url":"/admin/faq"})
+}
+
+
+func QaDelAction(c *gin.Context){
+	id, _ := strconv.Atoi(c.Param("id"))
+	if err := qa.FaqDelDo(id); err != nil{
+		log.Fatal(err)
+		c.JSON(200, gin.H{"code":1,"msg":"删除失败"})
+	}else{
+		c.JSON(200, gin.H{"msg": "删除成功","code":0,"url":"/admin/faq"})
+	}
+}
+func QaEditAction(c *gin.Context){
+	type R struct {
+		Content interface{}
+		Id		int
+		Title	string
+		Keywords string
+		ReplyText string
+		ReplyType int
+		ReplyImg string
+		Mid string
+	}
+	cid, _ := strconv.Atoi(c.Param("id"))
+	data, _ := qa.GetInfo(cid)
+	r := R{Id:data.Id,Title:data.Title, ReplyType:data.ReplyType,ReplyImg:data.ReplyImg,ReplyText:data.ReplyText,Content:template.HTML(data.Content), Keywords:data.Keywords, Mid:"faq"}
+	fmt.Println(r)
+	c.HTML(200,"admin/qa_edit.html",r)
+}
+
+func QaUpdateAction(c *gin.Context) {
+	faq := qa.Qa{}
+	faq.Id, _ = strconv.Atoi(c.PostForm("id"))
+	faq.Title = c.PostForm("title")
+	faq.ReplyType, _ = strconv.Atoi(c.PostForm("reply_type"))
+	faq.ReplyImg = c.PostForm("reply_img")
+	faq.ReplyText = c.PostForm("reply_text")
+	faq.Content = c.PostForm("content")
+	faq.Keywords = c.PostForm("keywords")
+
+
+	if _, err := faq.FaqUpdate(faq);err != nil {
+		log.Fatal(err)
+		c.JSON(200, gin.H{"code":1,"msg":"更新失败"})
+		c.Abort()
+	}
+
+	//更新FAQ字典
+	//go checkDic(faq.Keywords)
+
+	c.JSON(200, gin.H{"msg": "更新成功","code":0,"url":"/admin/faq"})
 }
 func checkDic(keywords string)  {
 	fmt.Println(keywords)
@@ -108,5 +160,5 @@ func GetAllWords(c *gin.Context)  {
 		}
 
 	}
-	c.HTML(200,"admin/keywords.html", gin.H{"list":ds,"mid":"dic"})
+	c.HTML(200,"admin/keywords.html", gin.H{"list":ds,"Mid":"dic"})
 }

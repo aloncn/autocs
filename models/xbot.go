@@ -28,21 +28,27 @@ type (
 		Keywords 	string     `json:"keywords"`
 		Views		int    	   `json:"views"`
 		CreateDate	time.Now   `json:"create_date"`
+		DeletedAt	time.Now    `json:"deleted_at"`
 	}
 
 	QaWeb struct {
 		Id int
 		Title	string
+		Keywords string
 		Content	string
 		ReplyType	int
 		ReplyImg	string
 		ReplyText	string
 		Views	int
 		CreateDate	string
+		DeletedAt	time.Now
 	}
 )
 
 func (Qa) TableName() string  {
+	return "xmks_qa";
+}
+func (QaWeb) TableName() string  {
 	return "xmks_qa";
 }
 
@@ -76,8 +82,8 @@ func GetList(page int)(x []QaWeb,total int, err error) {
 	}
 
 	total = 0
-	db.GetORM().Table("xmks_qa").Find(&x).Count(&total)
-	err = db.GetORM().Table("xmks_qa").Order("id desc").Limit(pg1).Offset(pg2).Find(&x).Error
+	db.GetORM().Find(&x).Count(&total)
+	err = db.GetORM().Order("id desc").Limit(pg1).Offset(pg2).Find(&x).Error
 
 	if err != nil {
 		fmt.Println(err)
@@ -96,5 +102,17 @@ func GetInfo(id int)(x QaWeb, err error) {
 
 func (* Qa)FaqAdd(qa Qa)(Qa,error){
 	err := db.GetORM().Create(&qa).Error
+	return qa,err
+}
+
+func FaqDelDo(id int) error {
+	var qa Qa
+	err := db.GetORM().Where("id = ?",id).Delete(&qa).Error
+	return err
+}
+
+
+func (* Qa)FaqUpdate(qa Qa)(Qa,error){
+	err := db.GetORM().Table("xmks_qa").Update(&qa).Error
 	return qa,err
 }
