@@ -35,7 +35,6 @@
                     <div class="col-md-12">
                         <div class="panel">
                             <div class="panel-body">
-
                                 <!-- GENERAL -->
                                 <h4 class="mar-no pad-btm bord-btm"><i class="demo-pli-gear"></i> 最新</h4>
                                 <div id="demo-gen-faq" class="panel-group accordion">
@@ -43,7 +42,15 @@
                                     <div class="pad-ver mar-ver">
                                         <div class="row">
                                             <div class="col-md-7">
-                                                <a href="#demo-gen-faq{{$i}}" class="text-semibold text-lg text-main" data-toggle="collapse" data-parent="#demo-gen-faq">{{$v.Title}}</a>
+                                                <a href="#demo-gen-faq{{$i}}" class="text-semibold text-lg text-main" data-toggle="collapse" data-parent="#demo-gen-faq">{{$v.Title}}
+                                                    {{if eq $v.ReplyType 1}}
+                                                        <i class="ion-chatbox"></i>
+                                                    {{else if eq $v.ReplyType 2}}
+                                                        <i class="ion-image"></i>
+                                                    {{else}}
+                                                        <i class="ion-navicon-round"></i>
+                                                    {{end}}
+                                                </a>
                                             </div>
                                             <div class="col-md-5 text-right mar-btm">
                                                 <a href="/faq/{{.Id}}" class="btn btn-sm btn-primary" target="_blank">详情</a>
@@ -68,7 +75,7 @@
                     </div>
                 </div>
 
-
+                <div class="page">{{.Page}}</div>
             </div>
 
             <!--End page content-->

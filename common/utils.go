@@ -183,3 +183,57 @@ func StrToSlice(str string) []string {
 	canSplit := func (c rune)  bool { return c == ','}
 	return strings.FieldsFunc(str,canSplit)  //字符串转数组
 }
+
+//判断文件或文件夹是否存在
+func IsExist(path string) bool {
+	_, err := os.Stat(path)
+	return err == nil || os.IsExist(err)
+	// 或者
+	//return err == nil || !os.IsNotExist(err)
+	// 或者
+	//return !os.IsNotExist(err)
+}
+
+//没有回答上来，随机回答
+func RangeAnswer() string {
+	f, err := os.Open("./data/noanswer.txt")
+	fmt.Println(err)
+	if err != nil {
+		panic(err)
+	}
+	defer f.Close()
+
+	rd := bufio.NewReader(f)
+	words := []string{}
+
+	i := 0
+	for {
+
+		line, err := rd.ReadString('\n') //以'\n'为结束符读入一行
+		thisLine := strings.Fields(line)
+		fmt.Println(thisLine[0])
+		//words[i] = thisLine[0]
+		i++
+		if err != nil || io.EOF == err {
+			break
+		}
+
+	}
+	fmt.Println(words)
+
+	return  "111"
+
+
+
+
+}
+func FaqType(typ int) string {
+	switch typ {
+	case 1:
+		return "[文本]"
+	case 2:
+		return "[图片]"
+	default:
+		return "[文章]"
+	}
+}

@@ -4,6 +4,8 @@ import (
 	db "farmer/autocs/database"
 	"fmt"
 	"github.com/deepzz0/go-com/time"
+	"farmer/autocs/config"
+	"github.com/jinzhu/gorm"
 )
 type (
 	Xbot struct {
@@ -12,6 +14,8 @@ type (
 		ReplyType	int    `json:"reply_type"`
 		ReplyImg	string    `json:"reply_img"`
 		ReplyText	string        `json:"reply_text"`
+		Views	int    `json:"views"`
+		DeletedAt	time.Now    `json:"deleted_at"`
 	}
 	QaList struct {
 		Id int
@@ -51,12 +55,17 @@ func (Qa) TableName() string  {
 func (QaWeb) TableName() string  {
 	return "xmks_qa";
 }
+func (Xbot) TableName() string  {
+	return "xmks_qa";
+}
 
 func GetListByKeyword(keyword string)(x []Xbot, err error) {
 	x = []Xbot{}
-	err = db.GetORM().Table("xmks_qa").Where("keywords like ?","%"+ keyword +"%").Order("id desc").Find(&x).Limit(5).Error
+	err = db.GetORM().Where("keywords like ?","%"+ keyword +"%").Order("id desc").Find(&x).Limit(5).Error
 	if err != nil {
 		fmt.Println(err)
+	}else{
+		db.GetORM().Model(&x).Where("keywords like ?","%"+ keyword +"%").UpdateColumn("views", gorm.Expr("views + ?", 1))
 	}
 	return
 }
@@ -73,7 +82,9 @@ func GetInfoById(id int)(x Qa, err error) {
 
 func GetList(page int)(x []QaWeb,total int, err error) {
 	x = []QaWeb{}
-	pg1 := 10
+
+	//带分页查询
+	pg1 := fmcfg.Config.GetInt("app.perPageNum")
 	var pg2 int
 	if page < 2{
 		pg2 = 0
@@ -113,6 +124,16 @@ func FaqDelDo(id int) error {
 
 
 func (* Qa)FaqUpdate(qa Qa)(Qa,error){
-	err := db.GetORM().Table("xmks_qa").Update(&qa).Error
+	err := db.GetORM().Table("xmks_qa").Where("id = ?",qa.Id).Update(&qa).Error
 	return qa,err
+}
+
+func GetKeywordsViews(keyword string) int {
+	var qa QaWeb
+	type Result struct {
+		Total int
+	}
+	var r Result
+	db.GetORM().Model(&qa).Select("sum(views) as total").Where("keywords like ?","%"+ keyword +"%").Scan(&r)
+	return r.Total
 }

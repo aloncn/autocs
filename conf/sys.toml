@@ -1,7 +1,14 @@
 [app]
 url = "127.0.0.1"
 port = "8000"
-basePath = "/Users/farmer/igo/src/farmer/autocs/"
+basePath = "/Users/farmer/igo/src/farmer/autocs"
+uploadPath = "/upload"
+perPageNum = 10 #分页数
+sqlDebug = true    #sql debug 模式
+
+
+[faq]
+minStrLen = 6   #分词最小长度
 
 
 [dbDefault]

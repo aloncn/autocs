@@ -104,7 +104,7 @@
                                     <label class="col-md-2 control-label" for="content_form">文章内容</label>
                                     <div class="col-md-9" id="content_form">
                                         <div  id="content">
-                                            <p>{{.Content}}</p>
+                                            {{.Content}}
                                         </div>
                                     </div>
                                 </div>
@@ -129,6 +129,8 @@
                                 editor.customConfig.uploadImgParams = {
                                     token: 'bmx2018'   // 属性值会自动进行 encode ，此处无需 encode
                                 }
+                                // 自定义菜单配置
+                                //editor.customConfig.menus = ['head', 'bold', 'italic', 'underline', 'strikeThrough', 'foreColor', 'backColor', 'link', 'list', 'justify', 'quote', 'emoticon', 'image', 'table', 'video', 'code', 'undo', 'redo']
                                 editor.create()
 
                             </script>
@@ -181,7 +183,7 @@
         $("#submit").click(function(){
             $.post("/admin/faq/update",
                 {
-                    id:$("#id").val(),
+                    id:$("#faq_id").val(),
                     title:$("#title").val(),
                     reply_type:$("input[name='reply_type']:checked").val(),
                     reply_img:$("#reply_img").val(),

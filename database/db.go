@@ -27,7 +27,8 @@ func NewDB(dbname string) {
 	dbIdle := fmcfg.Config.GetInt(dbname + ".dbIdle")
 	orm, err = gorm.Open(dbType, dbUser + ":" + dbPasswd + "@tcp(" + dbHost + ":" + dbPort + ")/" + dbName + "?charset=utf8&parseTime=True&loc=Local")
 	//开启sql调试模式
-	orm.LogMode(true)
+
+	orm.LogMode(fmcfg.Config.GetBool("app.sqlDebug"))
 
 	if err != nil {
 		fmt.Println(err)

@@ -2,7 +2,7 @@ package admin
 
 import (
 	"github.com/gin-gonic/gin"
-	qa "farmer/autocs/models"
+	"farmer/autocs/models"
 	"fmt"
 	"strconv"
 	"farmer/autocs/common"
@@ -12,13 +12,14 @@ import (
 	"strings"
 	"github.com/labstack/gommon/log"
 	"html/template"
+	"farmer/autocs/config"
 )
 
 func QaList(c *gin.Context) {
 	var msg string
 	var pageNum int
 	pageNum, _ = strconv.Atoi(c.Query("p"))
-	list,total, err := qa.GetList(pageNum)
+	list,total, err := models.GetList(pageNum)
 	if err != nil {
 		msg = "暂无数据"
 	}
@@ -26,14 +27,17 @@ func QaList(c *gin.Context) {
 	for i, v := range list{
 		list[i].Content = common.TrimHtml(v.Content)
 	}
-	c.HTML(200,"admin/faq.html", gin.H{"msg": msg,"list":list,"Mid":"faq"})
-}
 
+
+	var pages models.Page = models.NewPage(pageNum, fmcfg.Config.GetInt("app.perPageNum"), total, "/admin/faq")
+	page := pages.Show()
+	c.HTML(200,"admin/faq.html", gin.H{"msg": msg,"list":list,"Mid":"faq", "Page":template.HTML(page)})
+}
 func QaAdd(c *gin.Context) {
 	c.HTML(200,"admin/faq_add.html", gin.H{"Mid":"faq"})
 }
 func QaAddDo(c *gin.Context) {
-	faq := qa.Qa{}
+	faq := models.Qa{}
 	faq.Title = c.PostForm("title")
 	faq.ReplyType, _ = strconv.Atoi(c.PostForm("reply_type"))
 	faq.ReplyImg = c.PostForm("reply_img")
@@ -45,7 +49,7 @@ func QaAddDo(c *gin.Context) {
 	if _, err := faq.FaqAdd(faq);err != nil {
 		log.Fatal(err)
 		c.JSON(200, gin.H{"code":1,"msg":"新增失败"})
-		c.Abort()
+		return
 	}
 
 	//更新FAQ字典
@@ -57,7 +61,7 @@ func QaAddDo(c *gin.Context) {
 
 func QaDelAction(c *gin.Context){
 	id, _ := strconv.Atoi(c.Param("id"))
-	if err := qa.FaqDelDo(id); err != nil{
+	if err := models.FaqDelDo(id); err != nil{
 		log.Fatal(err)
 		c.JSON(200, gin.H{"code":1,"msg":"删除失败"})
 	}else{
@@ -76,15 +80,20 @@ func QaEditAction(c *gin.Context){
 		Mid string
 	}
 	cid, _ := strconv.Atoi(c.Param("id"))
-	data, _ := qa.GetInfo(cid)
+	data, _ := models.GetInfo(cid)
 	r := R{Id:data.Id,Title:data.Title, ReplyType:data.ReplyType,ReplyImg:data.ReplyImg,ReplyText:data.ReplyText,Content:template.HTML(data.Content), Keywords:data.Keywords, Mid:"faq"}
 	fmt.Println(r)
 	c.HTML(200,"admin/qa_edit.html",r)
 }
 
 func QaUpdateAction(c *gin.Context) {
-	faq := qa.Qa{}
+	faq := models.Qa{}
 	faq.Id, _ = strconv.Atoi(c.PostForm("id"))
+	if faq.Id < 1 {
+		fmt.Println(111)
+		c.JSON(200, gin.H{"code":1,"msg":"更新失败"})
+		return
+	}
 	faq.Title = c.PostForm("title")
 	faq.ReplyType, _ = strconv.Atoi(c.PostForm("reply_type"))
 	faq.ReplyImg = c.PostForm("reply_img")
@@ -92,11 +101,10 @@ func QaUpdateAction(c *gin.Context) {
 	faq.Content = c.PostForm("content")
 	faq.Keywords = c.PostForm("keywords")
 
-
 	if _, err := faq.FaqUpdate(faq);err != nil {
 		log.Fatal(err)
 		c.JSON(200, gin.H{"code":1,"msg":"更新失败"})
-		c.Abort()
+		return
 	}
 
 	//更新FAQ字典
@@ -150,7 +158,8 @@ func GetAllWords(c *gin.Context)  {
 		thisLine := strings.Fields(line)
 
 		aw.Name = thisLine[0]
-		aw.Weight, _= strconv.Atoi(thisLine[1])
+		//aw.Weight, _= strconv.Atoi(thisLine[1])
+		aw.Weight = models.GetKeywordsViews(aw.Name)
 		aw.Cs = common.RandGetArray(cor)
 		ds = append(ds, aw)
 		if err != nil || io.EOF == err {

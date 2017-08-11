@@ -8,11 +8,15 @@ import (
 	"farmer/autocs/web"
 	"farmer/autocs/admin"
 	"farmer/autocs/middleware"
-
 )
 
 func InitRouter() *gin.Engine {
 	router := gin.Default()
+
+	//模板自定义函数
+	//router.SetFuncMap(template.FuncMap{
+	//	"FaqType": common.FaqType,
+	//})
 
 	router.Static("/assets", "./assets")
 	router.Static("/upload", "./upload")

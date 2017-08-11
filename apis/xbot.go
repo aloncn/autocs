@@ -172,7 +172,8 @@ func ChatDemoApi(w http.ResponseWriter, r *http.Request){
 				result += "👉 a(http://" + url + strconv.Itoa(v.Id) + ")["+ v.Title +"] \n\r"
 			}
 		}else {
-			result = "你可以输入`百米需`,`云计算`,`优惠政策`,`小可爱`等进行体验";
+			//result = common.RangeAnswer();
+			result = ""
 		}
 		ret := Re{Username:js.Data.To.Name,Avatar:js.Data.To.Avatar,Id:js.Data.To.Id,Type:js.Data.To.Type,Content:result,Mine:false,Fromid:js.Data.Mine.Id,Timestamp:time.Now().Unix()}
 
